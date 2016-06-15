@@ -19,6 +19,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'sensor_data'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -67,6 +70,8 @@ DATABASES = {
         'PORT': "5432",
     }
 }
+
+AUTH_USER_MODEL = 'auth.User'
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
