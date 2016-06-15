@@ -5,10 +5,10 @@ from rest_framework.routers import DefaultRouter
 from sensor_data.api.viewsets import SensorViewset
 
 router = DefaultRouter()
-router.register(r'light', SensorViewset, base_name='SensorViewset')
+router.register(r'light', SensorViewset, base_name='Sensor')
 
 api_v1 = [
-    url(r'^api/v1/', include(router.urls)),
+    url(r'^', include(router.urls)),
     url(r'^api-token-auth/', views.obtain_auth_token)
 ]
 

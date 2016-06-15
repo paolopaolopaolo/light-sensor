@@ -1,10 +1,16 @@
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
+from rest_framework.viewsets import GenericViewSet
 from sensor_data.api.serializers import SensorSerializer
+from sensor_data.models import SensorData
 
 
-class SensorViewset(ModelViewSet):
+class SensorViewset(CreateModelMixin,
+                    ListModelMixin,
+                    RetrieveModelMixin,
+                    GenericViewSet):
+
+    class Meta:
+        model = SensorData
+
     serializer_class = SensorSerializer
-    permission_classes = [TokenAuthentication,]
-
-
+    queryset = SensorData.objects.all()
