@@ -6,9 +6,9 @@ repo_name: light-sensor
 project_name: lightsensor
 application_name: lightsensor
 
-git_ssh_pub_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQChBQHDV1vSnd3aK1WQXNavEanAWh2AJNlZB8+RRxED00A1QA7/0rDf8hb+ZVyZioe4B3QhlxiRFmssrGuEdGGLIkpYFk4hnMzt//apVcKzvzAnSYqrXFeUsR1eUKb6cpEqiJ8AwMpdyrrpNAc4DuAWRPzSu8u+DLcI2/tjM1xw+WLyAdr+vfabDRy/C052V6Ckgp9vDD0bkkSJpolONJQ+W1W5RRxxNAYG95Uzdl0JmU/ch2JbDphr4n6aX5yGTrcUCIXnhScxHC+5mEZrDAU6gY5GauTrmlXMt8vmPlRZqskUzavrUAMPSCByjdM1Eb+Xp/JmMA2NWAZwKokeGAH31YD8pc5yh9fNpcTxbqdMRy0ASIhaopi8ITP4FhtWy6+26D50x4x8sCSGz4Y0+gkFKjDu5I3ltq4VmaFlAvonDxkOhyU8DjmQEyov7FFyEuo5wu9SBRiP7xyQ4AfRsKtAOzpggAx69CgFhyoFLy2J/LMSYywqDDeDBDpzeVm32blq1HC1beaGZ+8updbtXq9epX+XkAi7o15qbnx7fOZGkLaplofcvHePZY4tlSlo5SFiqjy5G84aTaQZZius4U9XGGxi8+zwfEDMdXN846zaS/usMdvRsHDqDawGrIV/194a5+60tvwaedqyZGNZqdJx5QQjAcWlc/zV4xOoXKQPbQ=="
-git_ssh_priv_key: |
-  "-----BEGIN RSA PRIVATE KEY-----
+git_ssh_pub_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQChBQHDV1vSnd3aK1WQXNavEanAWh2AJNlZB8+RRxED00A1QA7/0rDf8hb+ZVyZioe4B3QhlxiRFmssrGuEdGGLIkpYFk4hnMzt//apVcKzvzAnSYqrXFeUsR1eUKb6cpEqiJ8AwMpdyrrpNAc4DuAWRPzSu8u+DLcI2/tjM1xw+WLyAdr+vfabDRy/C052V6Ckgp9vDD0bkkSJpolONJQ+W1W5RRxxNAYG95Uzdl0JmU/ch2JbDphr4n6aX5yGTrcUCIXnhScxHC+5mEZrDAU6gY5GauTrmlXMt8vmPlRZqskUzavrUAMPSCByjdM1Eb+Xp/JmMA2NWAZwKokeGAH31YD8pc5yh9fNpcTxbqdMRy0ASIhaopi8ITP4FhtWy6+26D50x4x8sCSGz4Y0+gkFKjDu5I3ltq4VmaFlAvonDxkOhyU8DjmQEyov7FFyEuo5wu9SBRiP7xyQ4AfRsKtAOzpggAx69CgFhyoFLy2J/LMSYywqDDeDBDpzeVm32blq1HC1beaGZ+8updbtXq9epX+XkAi7o15qbnx7fOZGkLaplofcvHePZY4tlSlo5SFiqjy5G84aTaQZZius4U9XGGxi8+zwfEDMdXN846zaS/usMdvRsHDqDawGrIV/194a5+60tvwaedqyZGNZqdJx5QQjAcWlc/zV4xOoXKQPbQ==
+git_ssh_priv_key:  |
+  -----BEGIN RSA PRIVATE KEY-----
   MIIJKQIBAAKCAgEAoQUBw1db0p3d2itVkFzWrxGpwFodgCTZWQfPkUcRA9NANUAO
   /9Kw3/IW/mVcmYqHuAd0IZcYkRZrLKxrhHRhiyJKWBZOIZzM7f/2qVXCs78wJ0mK
   q1xXlLEdXlCm+nKRKoifAMDKXcq66TQHOA7gFkT80rvLvgy3CNv7YzNccPli8gHa
@@ -58,5 +58,5 @@ git_ssh_priv_key: |
   DRUqnZCxrvYRePohpCnf7DpcmoXLqm4oBv9q6uLzVm2NAQ+lBV39UEeaV9O9KtJB
   dL/EtF2o+AGTcwxrFzXNY2yGiptPsXiV1NMnILoqHxGpf66h57L8jfi8yy03s9Z2
   81uMrt36++7hAqPF0oe6+de4Au+nvSc9GLLrj3Dv1dsk55MqXNwd5be52CVL
-  -----END RSA PRIVATE KEY-----"
+  -----END RSA PRIVATE KEY-----
 
