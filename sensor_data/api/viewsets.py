@@ -24,3 +24,10 @@ class SensorViewset(CreateModelMixin,
             sensor_data = [SensorData(**datum) for datum in serializer.data]
             SensorData.objects.bulk_create(sensor_data)
             return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+
+    @list_route(methods=['GET'])
+    def latest(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=self.get_queryset()[0:10], many=True)
+        return Response(serializer.data)
