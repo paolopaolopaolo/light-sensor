@@ -29,7 +29,5 @@ class SensorViewset(CreateModelMixin,
 
     @list_route(methods=['GET'])
     def latest(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=self.get_queryset()[0:10], many=True)
-        if serializer.is_valid():
-            return Response(serializer.data)
-        return Response(serializer.errors)
+        serializer = self.get_serializer(self.get_queryset()[0:10], many=True)
+        return Response(serializer.data)
