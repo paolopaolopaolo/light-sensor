@@ -29,5 +29,5 @@ class SensorViewset(CreateModelMixin,
 
     @list_route(methods=['GET'])
     def latest(self, request, *args, **kwargs):
-        serializer = self.get_serializer(self.get_queryset()[0:10], many=True)
+        serializer = self.get_serializer(self.get_queryset().order_by('-timestamp')[0:10], many=True)
         return Response(serializer.data)
