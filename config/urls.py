@@ -3,6 +3,7 @@ from django.contrib import admin
 from rest_framework.authtoken import views
 from rest_framework.routers import DefaultRouter
 from sensor_data.api.viewsets import SensorViewset
+from sensor_data.views import home
 
 router = DefaultRouter()
 router.register(r'light', SensorViewset, base_name='Sensor')
@@ -13,6 +14,7 @@ api_v1 = [
 ]
 
 urlpatterns = [
+    url(r'^$', home),
     url(r'^api/v1/', include(api_v1)),
     url(r'^admin/', include(admin.site.urls)),
 ]

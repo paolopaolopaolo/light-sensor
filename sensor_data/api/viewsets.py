@@ -1,3 +1,4 @@
+import time
 from rest_framework.decorators import list_route
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
 from rest_framework.response import Response
@@ -18,7 +19,7 @@ class SensorViewset(CreateModelMixin,
     queryset = SensorData.objects.all()
 
     @list_route(methods=['POST'])
-    def bulk_post(self, request, *args, **kwargs):
+    def bulk_post(self, request):
         serializer = self.get_serializer(data=request.data, many=True)
         if serializer.is_valid():
             sensor_data = [SensorData(**datum) for datum in serializer.data]
@@ -28,6 +29,6 @@ class SensorViewset(CreateModelMixin,
             return Response(serializer.errors)
 
     @list_route(methods=['GET'])
-    def latest(self, request, *args, **kwargs):
-        serializer = self.get_serializer(self.get_queryset().order_by('-timestamp')[0:10], many=True)
+    def latest(self, request):
+        serializer = self.get_serializer(self.get_queryset().order_by('-timestamp').first())
         return Response(serializer.data)

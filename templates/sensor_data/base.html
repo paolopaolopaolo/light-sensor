@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Light Sensor Data</title>
+</head>
+<body>
+  <div id="container" style="height: 400px; min-width: 310px"></div>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="//code.highcharts.com/stock/highstock.js"></script>
+  <script src="//code.highcharts.com/stock/modules/exporting.js"></script>
+  <script src="//code.highcharts.com/stock/modules/exporting.js"></script>
+  <script>
+  $(function () {
+      $('#container').highcharts('StockChart', {
+          chart : {
+              events : {
+                  load : function () {
+                      var series = this.series[0];
+                      setInterval(function () {
+                          $.ajax({
+                              url: '{{ protocol }}{{ domain }}/api/v1/light/latest/',
+                              type: 'GET',
+                              dataType: 'json',
+                              contentType: 'application/json',
+                              success: function (res) {
+                                  var x = (new Date()).getTime();
+                                  series.addPoint([x, res.light_level], true, true);
+                              }
+                          });
+                    }, 50);
+                  }
+              }
+          },
+
+          title : {
+            text : 'Light Sensor Data'
+          },
+
+          rangeSelector: {
+              buttons: [{
+                  count: 1,
+                  type: 'minute',
+                  text: '1M'
+                }, {
+                  count: 5,
+                  type: 'minute',
+                  text: '5M'
+                }, {
+                  type: 'all',
+                  text: 'All'
+              }],
+              inputEnabled: false,
+              selected: 0
+          },
+
+          series : [{
+              name : 'Light Sensor Data',
+              data : (function () {
+                  var data = [], time = (new Date()).getTime(), i;
+
+                  for (i = -999; i <= 0; i += 1) {
+                      data.push([
+                          time + i * 1000,
+                          0
+                      ]);
+                }
+                return data;
+            }())
+        }]
+    });
+
+});
+
+  </script>
+</body>
+</html>
