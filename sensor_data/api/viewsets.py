@@ -1,4 +1,3 @@
-import time
 from rest_framework.decorators import list_route
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
 from rest_framework.response import Response

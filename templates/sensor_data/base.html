@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Light Sensor Data</title>
+    <title>Office Light Sensor Data</title>
 </head>
 <body>
   <div id="container" style="height: 400px; min-width: 310px"></div>
@@ -28,7 +28,7 @@
                                   series.addPoint([x, res.light_level], true, true);
                               }
                           });
-                    }, 50);
+                    }, 500);
                   }
               }
           },
@@ -55,7 +55,7 @@
           },
 
           series : [{
-              name : 'Light Sensor Data',
+              name : 'Office Light Sensor Data',
               data : (function () {
                   var data = [], time = (new Date()).getTime(), i;
 
