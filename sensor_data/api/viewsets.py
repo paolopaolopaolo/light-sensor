@@ -29,11 +29,6 @@ class SensorViewset(CreateModelMixin,
 
     @list_route(methods=['GET'])
     def latest(self, request):
-        serializer = self.get_serializer(self.get_queryset().order_by('-timestamp').first())
-        return Response(serializer.data)
-
-    @list_route(methods=['GET'])
-    def latest(self, request):
         count = request.query_params.get('count', 10)
         serializer = self.get_serializer(self.get_queryset().order_by('-timestamp')[0:int(count)], many=True)
         return Response(serializer.data)
