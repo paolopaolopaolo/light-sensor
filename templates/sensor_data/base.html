@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Office Light Sensor Data</title>
+    <title>Light Sensor Data</title>
 </head>
 <body>
   <div id="container" style="height: 400px; min-width: 310px"></div>
@@ -20,7 +20,7 @@
                       var series = this.series[0];
                       setInterval(function () {
                           $.ajax({
-                              url: '{{ protocol }}{{ domain }}/api/v1/light/latest/?count=50',
+                              url: '{{ protocol }}{{ domain }}/api/v1/light/latest/?count=20',
                               type: 'GET',
                               dataType: 'json',
                               contentType: 'application/json',
