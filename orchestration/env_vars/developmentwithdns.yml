@@ -37,7 +37,7 @@ ssl_key_password: password
 ssl_enabled: no
 
 # Application settings.
-private_application_hosts: ['light@dpmercado.com', ]
+private_application_hosts: ['light.dpmercado.com', ]
 
 # Application settings.
 django_settings_file: "config.settings.devwdns"
