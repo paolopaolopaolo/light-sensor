@@ -9,6 +9,12 @@ PROJECT_ROOT = dirname(CONFIG_ROOT)
 # Name of the directory for the project.
 PROJECT_DIRNAME = PROJECT_ROOT.split(os.sep)[-1]
 
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT =  int(os.getenv('EMAIL_PORT', 587))
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = False
+
 # Application definition
 
 INSTALLED_APPS = (

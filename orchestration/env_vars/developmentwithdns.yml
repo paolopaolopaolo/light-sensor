@@ -12,6 +12,11 @@ db_user: "{{ application_name }}"
 db_name: "{{ application_name }}"
 db_password: "{{ lookup('vault', 'secret/lightsensor_developmentwithdns', 'db_password', 'vault_test.json') }}"
 
+# Email settings
+email_host: "{{ lookup('vault', 'secret/lightsensor_developmentwithdns', 'email_host', 'vault_test.json') }}"
+email_host_user: "{{ lookup('vault', 'secret/lightsensor_developmentwithdns', 'email_host_user', 'vault_test.json') }}"
+email_host_password: "{{ lookup('vault', 'secret/lightsensor_developmentwithdns', 'email_host_password', 'vault_test.json') }}"
+email_port: "{{ lookup('vault', 'secret/lightsensor_developmentwithdns', 'email_port', 'vault_test.json') }}"
 
 # Gunicorn settings. For the number of workers, a good rule to follow is
 # 2 x number of CPUs + 1
