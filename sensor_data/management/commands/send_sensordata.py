@@ -31,5 +31,3 @@ class Command(BaseCommand):
         )
         email.attach_file('./lightsensor{}.csv'.format(now))
         email.send()
-        os.remove('./lightsensor{}.csv'.format(now))
-        SensorData.objects.all().delete()
