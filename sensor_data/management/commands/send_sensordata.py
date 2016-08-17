@@ -3,8 +3,8 @@ from sensor_data.models import SensorData
 from django.conf import settings
 import csv
 import datetime
-import os
-
+import zipfile
+import shutil
 
 class Command(BaseCommand):
     help = 'Clears sensor data (to speed up system)'
@@ -21,6 +21,10 @@ class Command(BaseCommand):
             csvwriter.writerow(['time', 'light_level'])
             for sensor_data in total_sensor_data:
                 csvwriter.writerow([sensor_data.timestamp, sensor_data.light_level])
+        with zipfile.Zipfile('./lightsensor{}.csv.zip'.format(now), 'w') as csvzip:
+            csvzip.write('./lightsensor{}.csv'.format(now))
+            shutil.rmtree('./lightsensor{}.csv'.format(now))
+
         from django.core.mail import EmailMessage
 
         email = EmailMessage(
@@ -29,5 +33,5 @@ class Command(BaseCommand):
             settings.EMAIL_HOST_USER,
             [to_email, ],
         )
-        email.attach_file('./lightsensor{}.csv'.format(now))
+        email.attach_file('./lightsensor{}.csv.zip'.format(now))
         email.send()
