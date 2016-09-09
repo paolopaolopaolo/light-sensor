@@ -10,6 +10,7 @@ git_branch: develop
 # Database settings.
 db_user: "{{ application_name }}"
 db_name: "{{ application_name }}"
+db_host: "light.dpmercado.com"
 db_password: "{{ lookup('vault', 'secret/lightsensor_developmentwithdns', 'db_password', 'vault_test.json') }}"
 
 # Email settings
