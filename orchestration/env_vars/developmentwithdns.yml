@@ -11,6 +11,7 @@ git_branch: develop
 db_user: "{{ application_name }}"
 db_name: "{{ application_name }}"
 db_password: "{{ lookup('vault', 'secret/lightsensor_developmentwithdns', 'db_password', 'vault_test.json') }}"
+db_host: "104.236.75.26"
 
 # Email settings
 email_host: "{{ lookup('vault', 'secret/lightsensor_developmentwithdns', 'email_host', 'vault_test.json') }}"
