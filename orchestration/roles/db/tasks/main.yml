@@ -33,3 +33,15 @@
   postgresql_user: name={{ db_user }}
                    role_attr_flags=NOSUPERUSER,NOCREATEDB
                    state=present
+
+- name: Ensure application servers can access the db server
+  template: src=pg_hba_config.j2
+            dest=/etc/postgresql/9.4/main/pg_hba.conf
+            backup=yes
+  register: pga_hba_config
+  tags: pga_hba_config
+
+- name: If we changed the pga_hba.conf file, restart postgresql
+  service: name=postgresql state=restarted enabled=yes
+  when: pga_hba_config.changed or postgresql_config.changed
+  tags: pga_hba_config
