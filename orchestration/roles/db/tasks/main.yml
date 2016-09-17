@@ -3,9 +3,9 @@
 - name: Install PostgreSQL
   apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
   with_items:
-    - postgresql
-    - postgresql-contrib
-    - python-psycopg2
+    - postgresql=9.4+165+deb8u1
+    - postgresql-contrib=9.4+165+deb8u1
+    - python-psycopg2=2.5.4+dfsg-1
   tags: packages
 
 - name: Ensure the PostgreSQL service is running
@@ -20,6 +20,14 @@
                  template='template0'
                  state=present
 
+- name: Ensure postgres is listening for application servers
+  lineinfile: dest=/etc/postgresql/9.4/main/postgresql.conf
+              regexp="listen_addresses"
+              line="listen_addresses = 'localhost,{{ db_host }}'"
+              state=present
+  register: postgresql_config
+  when: private_application_hosts is defined
+
 - name: Ensure user has access to the database
   become_user: postgres
   postgresql_user: db={{ db_name }}
@@ -33,14 +41,6 @@
   postgresql_user: name={{ db_user }}
                    role_attr_flags=NOSUPERUSER,NOCREATEDB
                    state=present
-
-- name: Ensure postgres is listening for application servers
-  lineinfile: dest=/etc/postgresql/9.4/main/postgresql.conf
-              regexp="listen_addresses"
-              line="listen_addresses = 'localhost,{{ db_host }}'"
-              state=present
-  register: postgresql_config
-  when: private_application_hosts is defined
 
 - name: Ensure application servers can access the db server
   template: src=pg_hba_config.j2
