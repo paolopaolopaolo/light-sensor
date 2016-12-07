@@ -1,0 +1,54 @@
+---
+env: "yetisandbox"
+project_path: "/server/{{ application_name }}"
+
+# Git settings.
+setup_git_repo: yes
+git_branch: yetisandbox
+
+
+# Database settings.
+db_user: "{{ application_name }}"
+db_name: "{{ application_name }}"
+db_password: "{{ lookup('vault', 'secret/lightsensor_yetisandbox', 'db_password', 'vault_test.json') }}"
+db_host: "104.130.204.96"
+
+# Email settings
+email_host: "{{ lookup('vault', 'secret/lightsensor_yetisandbox', 'email_host', 'vault_test.json') }}"
+email_host_password: "{{ lookup('vault', 'secret/lightsensor_yetisandbox', 'email_host_password', 'vault_test.json') }}"
+email_host_user: "{{ lookup('vault', 'secret/lightsensor_yetisandbox', 'email_host_user', 'vault_test.json') }}"
+email_port: "{{ lookup('vault', 'secret/lightsensor_yetisandbox', 'email_port', 'vault_test.json') }}"
+
+# Gunicorn settings. For the number of workers, a good rule to follow is
+# 2 x number of CPUs + 1
+gunicorn_num_workers: 2
+gunicorn_user: "{{ application_name }}"
+
+# Setting this to 1 will restart the Gunicorn process each time
+# you make a request, basically reloading the code. Very handy
+# when developing. Set to 0 for unlimited requests (default).
+gunicorn_max_requests: 0
+
+
+# Nginx settings.
+nginx_server_name: "{{ inventory_hostname }}"
+ssl_src_dir: ssl_self_signed
+ssl_dest_dir: /etc/ssl
+ssl_key_password: password
+ssl_enabled: no
+
+# Application settings.
+private_application_hosts: ['104.130.204.96', ]
+
+# Application settings.
+django_settings_file: "config.settings.ysb"
+django_secret_key: "{{ lookup('vault', 'secret/lightsensor_yetisandbox', 'secret_key', 'vault_test.json') }}"
+
+run_django_db_migrations: yes
+run_django_collectstatic: yes
+
+bashrc_user: "root"
+home_path: "/{{ bashrc_user }}/"
+bashrc_path: "{{ home_path }}.bashrc"
+
+multiple_yurt_project_server: yes

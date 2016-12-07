@@ -1,0 +1,8 @@
+[all:vars]
+env=yetisandbox
+
+[appservers]
+lightsensor.yetisandbox.com
+
+[dbservers]
+104.130.204.96
