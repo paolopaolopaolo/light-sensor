@@ -49,5 +49,6 @@ run_django_db_migrations: yes
 run_django_collectstatic: yes
 
 bashrc_user: "root"
-home_path: "/{{ bash_user }}/"
+home_path: "/{{ bashrc_user }}/"
 bashrc_path: "{{ home_path }}.bashrc"
+multiple_yurt_project_server: no
