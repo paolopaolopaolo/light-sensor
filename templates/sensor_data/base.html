@@ -6,6 +6,11 @@
 </head>
 <body>
 <style>
+@keyframes fadeIn {
+    from { opacity: 0;  bottom: 20px; }
+    to { opacity: 1; bottom: 0px; }
+}
+
 #container {
     height: 400px;
     width: 680px;
@@ -13,6 +18,8 @@
     background-color: rgb(222,222,222);
     position: relative;
     font-family: sans-serif;
+    overflow: hidden;
+    border-radius: 5px;
 }
 
 .bar-container {
@@ -36,15 +43,28 @@
     width: 100%;
 }
 
-.bar-label *{
+.bar-label * {
     position: absolute;
-    top: 26%;
+    top: 31%;
 }
 
-.current-level {
+.current-level-container {
     margin-top: 30px;
     text-align: center;
     font-size: 50px;
+    height: 225px;
+    overflow: inherit;
+}
+
+.current-level-item {
+    position: relative;
+    animation: fadeIn 0.5s;
+}
+
+.tiny-message {
+    font-size: 10px;
+    position: absolute;
+    left: 50px;
 }
 
 .zero {
@@ -69,7 +89,7 @@ h1 {
         <span class="zero">0</span>
         <span class="thousand">1000</span>
     </div>
-    <div class="current-level"></div>
+    <div class="current-level-container"></div>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-color/2.1.2/jquery.color.min.js"></script>
@@ -90,18 +110,41 @@ h1 {
         return "rgba(72,165,226," + alpha + ")";
     }
 
+    function determineExtraMessage(data) {
+        var message;
+        if (data < 125) {
+            message = '- oh, so dark';
+        } else if (data > 900){
+            message = '- oof, it\'s like being on the sun';
+        }
+        return message;
+    }
+
     var wsClient = new WebSocket("ws://light.dpmercado.com:8768");
     wsClient.onopen = function(){
         console.log('Connection open!');
     };
 
     wsClient.onmessage = function (message) {
+        var maxLevels = 40;
         var incomingData = parseInt(message.data, 10);
+        var extraMessage = determineExtraMessage(incomingData);
         var color = determineColor(incomingData);
         var width = ((incomingData / 1000) * 100) + "%";
+        var $currentLevels = $('.current-level-item');
 
         $('.bar').animate({ width : width, backgroundColor: color });
-        $('.current-level').html(incomingData);
+        if (length === maxLevels) {
+             $currentLevels.last().remove();
+        }
+        $('.current-level-container').prepend(
+                "<div class=\"current-level-item\">"
+                + incomingData
+                + (extraMessage
+                    ? "<span class='tiny-message'>" + extraMessage + "</span>"
+                    : '')
+                + "</div>");
+
     };
 
     wsClient.onerror = function (error) {
