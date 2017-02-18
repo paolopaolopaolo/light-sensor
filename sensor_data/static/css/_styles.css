@@ -1,0 +1,107 @@
+@keyframes fadeIn {
+    from { opacity: 0;  bottom: 20px; }
+    to { opacity: 1; bottom: 0px; }
+}
+
+@keyframes rainbow {
+    0% {
+        background-color: red;
+    }
+    14% {
+        background-color: orange;
+    }
+    28% {
+        background-color: yellow;
+    }
+    42% {
+        background-color: green;
+    }
+    66% {
+        background-color: blue;
+    }
+    80% {
+        background-color: indigo;
+    }
+    100% {
+        background-color: purple;
+    }
+}
+
+@keyframes vibrate {
+    0% {transform:rotate3d(3,3,3,5deg);}
+    50% {transform:rotate3d(3,3,3,-5deg);}
+    100% {transform:rotate3d(3,3,3,0deg);}
+}
+
+.rainbow-cake {
+    animation: rainbow 0.1s infinite, vibrate 0.1s infinite;
+}
+
+#container {
+    height: 400px;
+    width: 680px;
+    margin: 0 auto;
+    background-color: rgb(222,222,222);
+    position: relative;
+    font-family: sans-serif;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.bar-container {
+    width: 90%;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px auto;
+    height: 30px;
+    background-color: white;
+    padding: 3px;
+}
+
+.bar {
+    width: 0%;
+    background-color: blue;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.bar-label {
+    width: 100%;
+}
+
+.bar-label * {
+    position: absolute;
+    top: 31%;
+}
+
+.current-level-container {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 50px;
+    height: 225px;
+    overflow: inherit;
+}
+
+.current-level-item {
+    position: relative;
+    animation: fadeIn 0.5s;
+}
+
+.tiny-message {
+    font-size: 10px;
+    position: absolute;
+    left: 59%;
+    top: 46%;
+}
+
+.zero {
+    left: 5%;
+}
+
+.thousand {
+    right: 5%;
+}
+
+h1 {
+    text-align: center;
+}
