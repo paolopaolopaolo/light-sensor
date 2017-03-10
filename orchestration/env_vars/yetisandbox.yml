@@ -4,7 +4,7 @@ project_path: "/server/{{ application_name }}"
 
 # Git settings.
 setup_git_repo: yes
-git_branch: yetisandbox
+git_branch: develop
 
 
 # Database settings.
