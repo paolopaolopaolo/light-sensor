@@ -28,13 +28,13 @@
 }
 
 @keyframes vibrate {
-    0% {transform:rotate3d(3,3,3,5deg);}
-    50% {transform:rotate3d(3,3,3,-5deg);}
+    0% {transform:rotate3d(3,3,3,1deg);}
+    50% {transform:rotate3d(3,3,3,-1deg);}
     100% {transform:rotate3d(3,3,3,0deg);}
 }
 
 .rainbow-cake {
-    animation: rainbow 0.1s infinite, vibrate 0.1s infinite;
+    animation: rainbow 2.5s infinite;
 }
 
 #container {

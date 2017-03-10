@@ -49,46 +49,57 @@
         return message;
     }
 
-    var wsClient = new WebSocket("ws://light.dpmercado.com:8768");
-    wsClient.onopen = function(){
-        console.log('Connection open!');
-    };
+    function startClient () {
+        var wsClient = new WebSocket("ws://light.dpmercado.com:8768/");
 
-    wsClient.onmessage = function (message) {
-        var
-            maxLevels = 40,
-            incomingData = parseInt(message.data, 10),
-            extraMessage = determineExtraMessage(incomingData),
-            color = determineColor(incomingData),
-            width = ((incomingData / 1000) * 100) + "%",
-            $currentLevels = $('.current-level-item'),
-            $bar = $('.bar');
+        wsClient.onopen = function(){
+            console.log('Connection open!');
+        };
 
-        $bar.animate({ width : width, backgroundColor: color });
+        wsClient.onmessage = function (message) {
+            var
+                maxLevels = 40,
+                incomingData = parseInt(message.data, 10),
+                extraMessage = determineExtraMessage(incomingData),
+                color = determineColor(incomingData),
+                width = ((incomingData / 1000) * 100) + "%",
+                $currentLevels = $('.current-level-item'),
+                $bar = $('.bar');
 
-        if (incomingData > 980) {
-            $bar.addClass('rainbow-cake');
-        } else {
-            $bar.removeClass('rainbow-cake');
+            $bar.animate({ width : width, backgroundColor: color });
+
+            if (incomingData > 980) {
+                $bar.addClass('rainbow-cake');
+            } else {
+                $bar.removeClass('rainbow-cake');
+            }
+
+            if (length === maxLevels) {
+                 $currentLevels.last().remove();
+            }
+
+            $('.current-level-container').prepend(
+                    "<div class=\"current-level-item\">"
+                    + incomingData
+                    + (extraMessage
+                        ? "<span class='tiny-message'>" + extraMessage + "</span>"
+                        : '')
+                    + "</div>");
+
+        };
+
+        wsClient.onerror = function (error) {
+            console.log(error);
         }
 
-        if (length === maxLevels) {
-             $currentLevels.last().remove();
+        wsClient.onclose = function () {
+            console.log('Connection Closed');
+            startClient();
         }
-
-        $('.current-level-container').prepend(
-                "<div class=\"current-level-item\">"
-                + incomingData
-                + (extraMessage
-                    ? "<span class='tiny-message'>" + extraMessage + "</span>"
-                    : '')
-                + "</div>");
-
-    };
-
-    wsClient.onerror = function (error) {
-        console.log(error);
     }
+
+    startClient();
+
 
 </script>
 </body>
