@@ -122,14 +122,13 @@ h1 {
 
 .house {
     position: absolute;
-    bottom: 0;
+    bottom: -1vh;
     right: 20vw;
 }
 
 .house-roof {
     width: 20vw;
     height: 100px;
-    margin-bottom: 1px;
 }
 
 .roof__front {
@@ -145,7 +144,7 @@ h1 {
     height: 100px;
     width: 200px;
     background-color: red;
-    transform: skew(45deg) translateX(152px);
+    transform: skew(45deg) translateX(150px);
 }
 
 .house-body {
@@ -154,7 +153,7 @@ h1 {
     width: 200px;
     position: relative;
     display: inline-block;
-    margin-right: -3px;
+    margin-right: -5px;
 }
 
 .house-body-3d {
@@ -162,6 +161,7 @@ h1 {
     height: 20vh;
     background-color: #020232;
     width: 198px;
+    position: relative;
 }
 
 .house-window {
@@ -179,6 +179,14 @@ h1 {
 }
 
 #window2 {
+    left: 134px;
+}
+
+#window3 {
+    left: 15px;
+}
+
+#window4 {
     left: 134px;
 }
 
