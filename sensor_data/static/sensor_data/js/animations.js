@@ -51,35 +51,65 @@ const getXYByProgress = (width, percent) => {
 const dayPatternMilestones = {
     '0': '#000000',
     '50': '#003366',
-    '100': '#FFFFFF'
+    '100': '#d5f3ff'
 };
-
-// const dayPatternMilestones = {
-//     '0': '#FF0000',
-//     '100': '#00FF00'
-// }
 
 const sunMoonMilestones = {
     '0': '#f3f5f6',
-    '25': '#FE5B35',
+    '25': '#FE7B65',
     '100': '#ffff00'
+};
+
+const roofMilestones = {
+    '0': '#5a0303',
+    '100': '#ff0000'
+};
+
+const roofBackground = {
+    '0': '#500202',
+    '100': '#a00000'
+};
+
+const houseBodyMilestones = {
+    '0': '#010133',
+    '100': '#1B52AA'
+};
+
+const houseBackground = {
+    '0': '#020232',
+    '100': '#25384b'
+};
+
+const windowMilestones = {
+    '0': '#ffff00',
+    '50': '#a6c5e4',
+    '100': '#bbbbbb'
 };
 
 const width = 50;
 
+// DOM elements
+
 const background = document.getElementById('container');
 const birdie = document.getElementsByClassName('birdie')[0];
+const roof = document.getElementsByClassName('roof__front')[0];
+const roof3D = document.getElementsByClassName('roof__3d')[0];
+const houseBody = document.getElementsByClassName('house-body')[0];
+const houseBody3D = document.getElementsByClassName('house-body-3d')[0];
 
-const _colorStep = (el, milestones, pastProg, progLimit, asc = null) => () => {
+// Animation frames
+
+const _colorStep = (el, milestones, pastProg, progLimit, asc = null, attribute = 'background-color') => () => {
     if (asc === null) asc = pastProg - progLimit < 0;
     const newProg = asc ? pastProg + 0.01 : pastProg - 0.01;
-    el.style.background = getColorWithMilestones(milestones, newProg);
+    el.style[attribute] = getColorWithMilestones(milestones, newProg);
     if (asc ? newProg < progLimit : newProg > progLimit) {
-        window.requestAnimationFrame(_colorStep(el, milestones, newProg, progLimit, asc));
+        window.requestAnimationFrame(_colorStep(el, milestones, newProg, progLimit, asc, attribute));
     }
 };
 
 const _parabolaStep = (el, width, pastProg, progLimit, asc = null) => () => {
+    console.log(`Start: ${performance.now()}`);
     if (asc === null) asc = pastProg - progLimit < 0;
     const newProg = asc ? pastProg + 0.01 : pastProg - 0.01;
     const newXY = getXYByProgress(width, newProg);
@@ -88,10 +118,26 @@ const _parabolaStep = (el, width, pastProg, progLimit, asc = null) => () => {
     if (asc ? newProg < progLimit : newProg > progLimit) {
         window.requestAnimationFrame(_parabolaStep(el, width, newProg, progLimit, asc));
     }
+    console.log(`End: ${performance.now()}`);
 };
+
+// Entrypoint
 
 const doEverything = (from, to) => {
     window.requestAnimationFrame(_colorStep(background, dayPatternMilestones, from, to));
     window.requestAnimationFrame(_parabolaStep(birdie, width, from, to));
     window.requestAnimationFrame(_colorStep(birdie, sunMoonMilestones, from, to));
+    window.requestAnimationFrame(_colorStep(roof, roofMilestones, from, to, null, 'border-bottom-color'));
+    window.requestAnimationFrame(_colorStep(houseBody, houseBodyMilestones, from, to));
+    window.requestAnimationFrame(_colorStep(roof3D, roofBackground, from, to));
+    window.requestAnimationFrame(_colorStep(houseBody3D, houseBackground, from, to));
+    const wps = document.getElementsByClassName('wp');
+    window.requestAnimationFrame(_colorStep(wps[0], windowMilestones, from, to));
+    window.requestAnimationFrame(_colorStep(wps[1], windowMilestones, from, to));
+    window.requestAnimationFrame(_colorStep(wps[2], windowMilestones, from, to));
+    window.requestAnimationFrame(_colorStep(wps[3], windowMilestones, from, to));
+    window.requestAnimationFrame(_colorStep(wps[4], windowMilestones, from, to));
+    window.requestAnimationFrame(_colorStep(wps[5], windowMilestones, from, to));
+    window.requestAnimationFrame(_colorStep(wps[6], windowMilestones, from, to));
+    window.requestAnimationFrame(_colorStep(wps[7], windowMilestones, from, to));
 };

@@ -14,6 +14,6 @@
 
   roles:
     - base
-    - memcached
-    - nvm
+#    - memcached
+#    - nvm
     - app

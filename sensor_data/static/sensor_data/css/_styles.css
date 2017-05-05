@@ -79,13 +79,13 @@ body {
 }
 
 .birdie {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: yellow;
-  position: absolute;
-  bottom: 10px;
-  left:10px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: yellow;
+    position: absolute;
+    bottom: 10px;
+    left:10px;
 }
 
 .current-level-container {
@@ -118,4 +118,73 @@ body {
 
 h1 {
     text-align: center;
+}
+
+.house {
+    position: absolute;
+    bottom: 0;
+    right: 20vw;
+}
+
+.house-roof {
+    width: 20vw;
+    height: 100px;
+    margin-bottom: 1px;
+}
+
+.roof__front {
+    height: 0;
+    width: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 100px solid red;
+    position: absolute;
+}
+
+.roof__3d {
+    height: 100px;
+    width: 200px;
+    background-color: red;
+    transform: skew(45deg) translateX(152px);
+}
+
+.house-body {
+    height: 20vh;
+    background-color: blue;
+    width: 200px;
+    position: relative;
+    display: inline-block;
+    margin-right: -3px;
+}
+
+.house-body-3d {
+    display: inline-block;
+    height: 20vh;
+    background-color: #020232;
+    width: 198px;
+}
+
+.house-window {
+    position: absolute;
+    top: 20%;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+#window1 {
+    left: 15px;
+}
+
+#window2 {
+    left: 134px;
+}
+
+.wp {
+    width: 20px;
+    height: 20px;
+    background-color: yellow;
+    margin-bottom: 10px;
 }
