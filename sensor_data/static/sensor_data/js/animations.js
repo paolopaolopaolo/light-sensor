@@ -9,13 +9,22 @@ window.doEverything = (() => {
     // Variables: DOM elements
 
     const background = document.getElementById('container');
+    const pageHeader = document.getElementById('page-header');
     const birdie = document.getElementsByClassName('birdie')[0];
     const roof = document.getElementsByClassName('roof__front')[0];
     const roof3D = document.getElementsByClassName('roof__3d')[0];
     const houseBody = document.getElementsByClassName('house-body')[0];
     const houseBody3D = document.getElementsByClassName('house-body-3d')[0];
+    const wps = document.getElementsByClassName('wp');
 
     // Progress: Style Milestone mappings
+
+    const headerMilestones = {
+        "0": '#858585',
+        "50": '#FE7B65',
+        "75": '#000000',
+        "100": '#858585'
+    };
 
     const dayPatternMilestones = {
         '0': '#000000',
@@ -145,41 +154,51 @@ window.doEverything = (() => {
             }
         };
 
+    // FUNCTION: Returns list of animations to perform
+
+    const animationListFactory = (from, to, finishedAnimations) => ([
+        [_colorStep, background, dayPatternMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, pageHeader, headerMilestones, from, to, null, 'color', finishedAnimations],
+        [_parabolaStep, birdie, width, from, to, finishedAnimations],
+        [_colorStep, birdie, sunMoonMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, roof, roofMilestones, from, to, null, 'border-bottom-color', finishedAnimations],
+        [_colorStep, houseBody, houseBodyMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, roof3D, roofBackground, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, houseBody3D, houseBackground, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[0], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[1], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[2], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[3], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[4], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[5], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[6], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[7], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[8], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[9], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[10], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[11], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[12], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[13], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[14], windowMilestones, from, to, null, 'background-color', finishedAnimations],
+        [_colorStep, wps[15], windowMilestones, from, to, null, 'background-color', finishedAnimations]
+    ]);
+
     // Entrypoint
     return (from, to) => new Promise((resolve) => {
-        const wps = document.getElementsByClassName('wp');
-        const animationsToFinish = 23; // the number of individual animations performed below
         let finishedAnimations = [];
+        const animationList = animationListFactory(from, to, finishedAnimations);
 
-        raf(_colorStep(background, dayPatternMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_parabolaStep(birdie, width, from, to, finishedAnimations));
-        raf(_colorStep(birdie, sunMoonMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(roof, roofMilestones, from, to, null, 'border-bottom-color', finishedAnimations));
-        raf(_colorStep(houseBody, houseBodyMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(roof3D, roofBackground, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(houseBody3D, houseBackground, from, to, null, 'background-color', finishedAnimations));
-        // TODO: find a better way to do all these windows
-        raf(_colorStep(wps[0], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[1], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[2], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[3], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[4], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[5], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[6], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[7], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[8], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[9], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[10], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[11], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[12], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[13], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[14], windowMilestones, from, to, null, 'background-color', finishedAnimations));
-        raf(_colorStep(wps[15], windowMilestones, from, to, null, 'background-color', finishedAnimations));
+        for (let idx = 0; idx < animationList.length; idx++) {
+            const argArray = animationList[idx];
+            const stepFunc = argArray.shift();
+            raf(stepFunc.apply(window, argArray));
+        }
 
-        // Naïve, yet comprehensive way to ensure that animations are blocking.
-        // Don't resolve until all the animations have reached the end
+        // Naïve, yet comprehensive way to ensure that resolve is called
+        // only after all the animations are complete.
+        // Won't resolve until all the animations have reached the end
         const checker = setInterval(() => {
-            if (animationsToFinish === finishedAnimations.length) {
+            if (animationList.length === finishedAnimations.length) {
                 clearInterval(checker);
                 resolve();
             }

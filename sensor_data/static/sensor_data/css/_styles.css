@@ -120,6 +120,20 @@ h1 {
     text-align: center;
 }
 
+.info-dashboard {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.25);
+    top: 1vh;
+    left: 1vh;
+    width: 25vw;
+    border-radius: 5px;
+    color: white;
+    padding: 18px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
 .house {
     position: absolute;
     bottom: -1vh;
@@ -195,4 +209,12 @@ h1 {
     height: 20px;
     background-color: yellow;
     margin-bottom: 10px;
+}
+
+#page-header {
+    opacity: 0.4;
+    font-family: Helvetica;
+    text-align: center;
+    font-weight: 300;
+    color: #858585;
 }
