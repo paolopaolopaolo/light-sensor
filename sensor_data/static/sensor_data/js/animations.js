@@ -2,7 +2,7 @@
 // Boilerplate for NOT polluting that sweet, sweet global namespace.
 window.doEverything = (() => {
     // VARIABLES: Global
-    const width = 50;
+    const width = 90;
     const raf = window.requestAnimationFrame;
     const stepSize = 0.01;
 
@@ -90,10 +90,10 @@ window.doEverything = (() => {
     };
 
     const getYUpturntParabola = (width, percent) => {
-        const halfWidth = width * 1.85;
-        const heightCoeff = 0.9;
-        const x = (halfWidth) * percent;
-        const y = -((heightCoeff/halfWidth) * (Math.pow(x - halfWidth, 2))) + (halfWidth * heightCoeff);
+        const adjustedWidth = width;
+        const heightCoeff = 0.5;
+        const x = (adjustedWidth) * percent;
+        const y = -((heightCoeff/adjustedWidth) * (Math.pow(x - adjustedWidth, 2))) + (adjustedWidth * heightCoeff) + 40;
         return [x, y];
     };
 

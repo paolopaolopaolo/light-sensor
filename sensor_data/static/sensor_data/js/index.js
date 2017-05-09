@@ -2,6 +2,7 @@
 (() => {
     // Variables: Global
     const doEverything = window.doEverything;
+    const threshold = 0.05;
     const progressArray = [0];
     let inProgress = false;
     let wsClient;
@@ -53,7 +54,7 @@
         };
     };
 
-    const firstTwoDiff = array => array[0] !== array[1];
+    const firstTwoDiff = array => array[0] !== array[1] && Math.abs(array[0] - array[1]) > threshold;
 
     // Start Websocket
     startClient();
