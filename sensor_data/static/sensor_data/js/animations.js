@@ -1,15 +1,14 @@
 
 // Boilerplate for NOT polluting that sweet, sweet global namespace.
 window.doEverything = (() => {
-    // Variables: Global
+    // VARIABLES: Global
     const width = 50;
     const raf = window.requestAnimationFrame;
     const stepSize = 0.01;
 
-    // Variables: DOM elements
+    // VARIABLES: DOM elements
 
     const background = document.getElementById('container');
-    const pageHeader = document.getElementById('page-header');
     const birdie = document.getElementsByClassName('birdie')[0];
     const roof = document.getElementsByClassName('roof__front')[0];
     const roof3D = document.getElementsByClassName('roof__3d')[0];
@@ -17,51 +16,38 @@ window.doEverything = (() => {
     const houseBody3D = document.getElementsByClassName('house-body-3d')[0];
     const wps = document.getElementsByClassName('wp');
 
-    // Progress: Style Milestone mappings
-
-    const headerMilestones = {
-        "0": '#858585',
-        "50": '#FE7B65',
-        "75": '#000000',
-        "100": '#858585'
-    };
+    // VARIABLES: Style Milestone mappings
 
     const dayPatternMilestones = {
         '0': '#000000',
         '50': '#003366',
-        '100': '#d5f3ff'
+        '100': '#a3c1cd'
     };
-
     const sunMoonMilestones = {
         '0': '#f3f5f6',
         '25': '#FE7B65',
         '100': '#ffff00'
     };
-
     const roofMilestones = {
-        '0': '#5a0303',
-        '100': '#ff0000'
+        '0': '#9f9f9f',
+        '100': '#ffffff'
     };
-
     const roofBackground = {
-        '0': '#500202',
-        '100': '#a00000'
+        '0': '#595959',
+        '100': '#9f9f9f'
     };
-
     const houseBodyMilestones = {
-        '0': '#010133',
-        '100': '#1B52AA'
+        '0': '#002f3d',
+        '100': '#009DAB'
     };
-
     const houseBackground = {
-        '0': '#020232',
-        '100': '#25384b'
+        '0': '#00101b',
+        '100': '#004452'
     };
-
     const windowMilestones = {
         '0': '#ffff00',
         '50': '#a6c5e4',
-        '100': '#bbbbbb'
+        '100': '#ffffff'
     };
 
     // FUNCTIONS: Hex to RGB Conversions
@@ -158,7 +144,6 @@ window.doEverything = (() => {
 
     const animationListFactory = (from, to, finishedAnimations) => ([
         [_colorStep, background, dayPatternMilestones, from, to, null, 'background-color', finishedAnimations],
-        [_colorStep, pageHeader, headerMilestones, from, to, null, 'color', finishedAnimations],
         [_parabolaStep, birdie, width, from, to, finishedAnimations],
         [_colorStep, birdie, sunMoonMilestones, from, to, null, 'background-color', finishedAnimations],
         [_colorStep, roof, roofMilestones, from, to, null, 'border-bottom-color', finishedAnimations],
@@ -183,7 +168,7 @@ window.doEverything = (() => {
         [_colorStep, wps[15], windowMilestones, from, to, null, 'background-color', finishedAnimations]
     ]);
 
-    // Entrypoint
+    // Returns a Promise that resolves once the animations are complete
     return (from, to) => new Promise((resolve) => {
         let finishedAnimations = [];
         const animationList = animationListFactory(from, to, finishedAnimations);

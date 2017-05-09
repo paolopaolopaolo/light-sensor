@@ -5,6 +5,30 @@
     const progressArray = [0];
     let inProgress = false;
     let wsClient;
+    const messageMap = {
+      40: 'The office is pretty dark right now. The Yetis are in their respective homes ' +
+          'or simply working in the dark.',
+      60: 'The office is at average brightness. Perhaps it is a little cloudy. ' +
+          'The Yetis are heads down at work, creating beautiful apps and digital experiences.',
+      100: 'The office is as bright as it gets. Some Yetis are probably out and about, since ' +
+           'they, like many mythical creatures, enjoy being outdoors.'
+    };
+
+    // Variables: DOM
+    const lightBlip = document.getElementById('light-blip');
+
+    const setMessage = (number) => {
+        const adjustedNumber = number * 100;
+        const compareKeys = Object.keys(messageMap).map(key => parseInt(key, 10)); // Get the numeric keys of message map
+
+        for (let valIdx = 0; valIdx < compareKeys.length; valIdx++) {
+            const value = compareKeys[valIdx];
+            if (adjustedNumber < value) {
+                lightBlip.innerText = messageMap[value];
+                break;
+            }
+        }
+    };
 
     // Functions
     const startClient = () => {
@@ -48,6 +72,7 @@
                         from = progressArray.shift();
                         to = progressArray[0];
                     }
+                    setMessage(to);
                     doEverything(from, to).then(() => {
                         inProgress = false;
                     });
