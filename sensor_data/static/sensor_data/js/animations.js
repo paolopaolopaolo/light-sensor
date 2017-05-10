@@ -2,9 +2,9 @@
 // Boilerplate for NOT polluting that sweet, sweet global namespace.
 window.doEverything = (() => {
     // VARIABLES: Global
-    const width = 90;
-    const raf = window.requestAnimationFrame;
-    const stepSize = 0.01;
+    const width = 90; // in vw
+    const raf = window.requestAnimationFrame; // aliased for readability
+    const stepSize = 0.0075;
 
     // VARIABLES: DOM elements
 
@@ -46,6 +46,7 @@ window.doEverything = (() => {
     };
     const windowMilestones = {
         '0': '#ffff00',
+        '25': '#FE7B65',
         '50': '#a6c5e4',
         '100': '#ffffff'
     };
