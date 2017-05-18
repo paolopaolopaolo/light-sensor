@@ -1,13 +1,20 @@
 
 (() => {
     // Variables: Global
+    const MAX_STACK = 5;
     const doEverything = window.doEverything;
+    const _ = window._;
     const threshold = 0.05;
     const progressArray = [0];
     let inProgress = false;
     let wsClient;
+    const YETI_STARTING_MESSAGE_TEMPLATE =
+        "<h3 id=\"page-header\">Yeti Office Light Levels</h3>" +
+        "This page reflects real-time light levels in the Yeti SF Office." +
+        " <%= message %>";
+
     const messageMap = {
-      40: 'The office is pretty dark right now. The Yetis are in their respective homes ' +
+      30: 'The office is pretty dark right now. The Yetis are in their respective homes ' +
           'or simply working in the dark.',
       60: 'The office is at average brightness. Perhaps it is a little cloudy. ' +
           'The Yetis are heads down at work, creating beautiful apps and digital experiences.',
@@ -16,7 +23,7 @@
     };
 
     // Variables: DOM
-    const lightBlip = document.getElementById('light-blip');
+    const infoDashboard = document.getElementsByClassName('info-dashboard')[0];
 
     const setMessage = (number) => {
         const adjustedNumber = number * 100;
@@ -25,7 +32,7 @@
         for (let valIdx = 0; valIdx < compareKeys.length; valIdx++) {
             const value = compareKeys[valIdx];
             if (adjustedNumber < value) {
-                lightBlip.innerText = messageMap[value];
+                infoDashboard.innerHTML = _.template(YETI_STARTING_MESSAGE_TEMPLATE)({ message: messageMap[value] });
                 break;
             }
         }
@@ -59,30 +66,35 @@
     // Start Websocket
     startClient();
 
-    // Set interval for animation
-    setInterval(() => {
-        if (progressArray.length > 1) {
-            if (firstTwoDiff(progressArray)) {
-                if (!inProgress) {
-                    inProgress = true;
-                    let from, to;
-                    if (progressArray.length > 5) {
-                        from = progressArray.splice(0, 4)[0];
-                        to = progressArray[0];
-                    } else {
-                        from = progressArray.shift();
-                        to = progressArray[0];
-                    }
-                    setMessage(to);
-                    doEverything(from, to).then(() => {
-                        inProgress = false;
-                    });
+    // Do a quick animation to jumpstart the styles (in the event that it's at 0)
+    doEverything(0, 0.01).then(() => {
+        doEverything(0.01, 0).then(() => {
+            // Set interval for animation
+            setInterval(() => {
+                // If progress array is greater than the max stack constant,
+                // reduce progress array to just the first element and the last.
+                if (progressArray.length > MAX_STACK) {
+                    progressArray.splice(1, progressArray.length - 2);
                 }
-            } else {
-                progressArray.shift();
-            }
-        }
-    }, 16);
+
+                if (progressArray.length > 1) {
+                    if (firstTwoDiff(progressArray)) {
+                        if (!inProgress) {
+                            inProgress = true;
+                            const from = progressArray.shift(),
+                                  to = progressArray[0];
+                            setMessage(to);
+                            doEverything(from, to).then(() => {
+                                inProgress = false;
+                            });
+                        }
+                    } else {
+                        progressArray.shift();
+                    }
+                }
+            }, 16);
+        });
+    });
 
 })();
 

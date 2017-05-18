@@ -16,7 +16,7 @@ window.doEverything = (() => {
     const houseBody3D = document.getElementsByClassName('house-body-3d')[0];
     const wps = document.getElementsByClassName('wp');
 
-    // VARIABLES: Style Milestone mappings
+    // VARIABLES: Style Milestone mappings for Color changes
 
     const dayPatternMilestones = {
         '0': '#000000',
@@ -72,13 +72,26 @@ window.doEverything = (() => {
     // FUNCTIONS: Get style by progress (0.0 - 1.0)
 
     const getColorWithMilestones = (milestones, progress) => {
+
+
+        // Convert from 0 - 1 scale to 0 - 100 scale
         const integerProgress = Math.floor(progress * 100);
+
+        // Get the "milestone" markers as they are defined
+        // TODO: Validate milestone keys to ensure that they are assorted in ascending order
         const milestoneKeys = Object.keys(milestones);
+
+        // Find the index of the milestone that is the "floor" of the given progress value
         let startingFromIdx = milestoneKeys.findIndex(milestone => integerProgress < parseInt(milestone, 10)) - 1;
+
+        // Default startingFrom as the last milestone
         if (startingFromIdx < 0) startingFromIdx = milestoneKeys.length - 1;
+
+        // Get the color Hex of the given milestone
         const startingMilestone = milestoneKeys[startingFromIdx];
+
         const endingMilestone = milestoneKeys[Math.min(startingFromIdx + 1, milestoneKeys.length - 1)];
-        const milestoneSize = Math.pow(Math.pow(parseInt(startingMilestone, 10) - parseInt(endingMilestone, 10), 2), 0.5);
+        const milestoneSize = Math.abs(parseInt(startingMilestone, 10) - parseInt(endingMilestone, 10));
         const fromArray = _hexToRGBArray(milestones[startingMilestone]);
         const toArray = _hexToRGBArray(milestones[endingMilestone]);
         const normalizedProgress = (integerProgress - startingMilestone) / milestoneSize;
