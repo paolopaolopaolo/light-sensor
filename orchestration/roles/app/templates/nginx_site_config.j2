@@ -19,28 +19,24 @@ upstream browserSocket {
     server 127.0.0.1:8767;
 }
 
-{% if ssl_enabled %}
 server {
     listen              80;
     server_name         {{ nginx_server_name }};
     rewrite             ^ https://$server_name$request_uri? permanent;
 }
-{% endif %}
 
 server {
-    listen              {% if ssl_enabled %}443;{% else %}80;{% endif %}
+    listen              443;
 
     server_name         {{ nginx_server_name }};
 
-    {% if ssl_enabled %}
 	ssl on;
-	ssl_certificate     {{ ssl_dest_dir }}/{{ application_name }}.crt;
-	ssl_certificate_key {{ ssl_dest_dir }}/{{ application_name }}.key;
+	ssl_certificate  /etc/letsencrypt/live/light.dpmercado.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/keys/0000_key-certbot.pem;
     ssl_session_cache    shared:SSL:10m;
     ssl_session_timeout  10m;
     ssl_ciphers RC4:HIGH:!aNULL:!MD5;
     ssl_prefer_server_ciphers on;
-    {% endif %}
 
     client_max_body_size 4G;
 
@@ -83,7 +79,10 @@ server {
 }
 
 server {
-    listen 	8766;
+    listen 	8766 ssl;
+    ssl on;
+    ssl_certificate  /etc/letsencrypt/live/light.dpmercado.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/keys/0000_key-certbot.pem;
     location / {
         proxy_pass http://websocket;
         proxy_http_version 1.1;
@@ -93,7 +92,11 @@ server {
 }
 
 server {
-    listen 	8768;
+    listen 	8768 ssl;
+    ssl on;
+    ssl_certificate  /etc/letsencrypt/live/light.dpmercado.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/keys/0000_key-certbot.pem;
+
     location / {
         proxy_pass http://browserSocket;
         proxy_http_version 1.1;

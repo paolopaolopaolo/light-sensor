@@ -73,7 +73,6 @@ window.doEverything = (() => {
 
     const getColorWithMilestones = (milestones, progress) => {
 
-
         // Convert from 0 - 1 scale to 0 - 100 scale
         const integerProgress = Math.floor(progress * 100);
 
@@ -154,7 +153,7 @@ window.doEverything = (() => {
             }
         };
 
-    // FUNCTION: Returns list of animations to perform
+    // FUNCTION: Returns array of animations to perform
 
     const animationListFactory = (from, to, finishedAnimations) => ([
         [_colorStep, background, dayPatternMilestones, from, to, null, 'background-color', finishedAnimations],
@@ -182,7 +181,7 @@ window.doEverything = (() => {
         [_colorStep, wps[15], windowMilestones, from, to, null, 'background-color', finishedAnimations]
     ]);
 
-    // Returns a Promise that resolves once the animations are complete
+    // Returns a function that returns a Promise that resolves once the animations are complete
     return (from, to) => new Promise((resolve) => {
         let finishedAnimations = [];
         const animationList = animationListFactory(from, to, finishedAnimations);

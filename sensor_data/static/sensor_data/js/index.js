@@ -16,7 +16,7 @@
     const messageMap = {
       30: 'The office is pretty dark right now. The Yetis are in their respective homes ' +
           'or simply working in the dark.',
-      60: 'The office is at average brightness. Perhaps it is a little cloudy. ' +
+      90: 'The office is at average brightness. Perhaps it is a little cloudy. ' +
           'The Yetis are heads down at work, creating beautiful apps and digital experiences.',
       100: 'The office is as bright as it gets. Some Yetis are probably out and about, since ' +
            'they, like many mythical creatures, enjoy being outdoors.'
@@ -40,7 +40,7 @@
 
     // Functions
     const startClient = () => {
-        wsClient = new WebSocket('ws://light.dpmercado.com:8768/');
+        wsClient = new WebSocket('wss://light.dpmercado.com:8768/');
 
         wsClient.onopen = function () {
             console.log('Connection open!');
@@ -68,34 +68,33 @@
 
     // Do a quick animation to jumpstart the styles (in the event that it's at 0)
     doEverything(0, 0.01).then(() => {
-        doEverything(0.01, 0).then(() => {
-            // Set interval for animation
-            setInterval(() => {
-                // If progress array is greater than the max stack constant,
-                // reduce progress array to just the first element and the last.
-                if (progressArray.length > MAX_STACK) {
-                    progressArray.splice(1, progressArray.length - 2);
-                }
+        return doEverything(0.01, 0);
+    }).then(() => {
+        // Set interval for animation
+        setInterval(() => {
+            // If progress array is greater than the max stack constant,
+            // reduce progress array to just the first element and the last.
+            if (progressArray.length > MAX_STACK) {
+                progressArray.splice(1, progressArray.length - 2);
+            }
 
-                if (progressArray.length > 1) {
-                    if (firstTwoDiff(progressArray)) {
-                        if (!inProgress) {
-                            inProgress = true;
-                            const from = progressArray.shift(),
-                                  to = progressArray[0];
-                            setMessage(to);
-                            doEverything(from, to).then(() => {
-                                inProgress = false;
-                            });
-                        }
-                    } else {
-                        progressArray.shift();
+            if (progressArray.length > 1) {
+                if (firstTwoDiff(progressArray)) {
+                    if (!inProgress) {
+                        inProgress = true;
+                        const from = progressArray.shift(),
+                              to = progressArray[0];
+                        setMessage(to);
+                        doEverything(from, to).then(() => {
+                            inProgress = false;
+                        });
                     }
+                } else {
+                    progressArray.shift();
                 }
-            }, 16);
-        });
+            }
+        }, 16);
     });
-
 })();
 
 
