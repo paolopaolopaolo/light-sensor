@@ -76,6 +76,10 @@ server {
     location = /maintenance_on.html {
         root {{ virtualenv_path }}/;
     }
+
+   location /.well-known {
+        alias /var/www/html/.well-known;
+   } 
 }
 
 server {
